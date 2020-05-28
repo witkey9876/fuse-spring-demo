@@ -3,7 +3,6 @@ package com.example.camel.configuration;
 
 import com.example.camel.model.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -97,7 +96,6 @@ public class CamelConfiguration {
     }
 
 
-
     /**
      * 1. 接受mq消息队列的消息
      * 2.
@@ -124,9 +122,6 @@ public class CamelConfiguration {
 
         }
     }
-
-
-
 
 
     /**
@@ -219,7 +214,7 @@ public class CamelConfiguration {
 
 
         ObjectMapper objectMapper = new ObjectMapper();
-        private JsonMapper jsonMapper = new JsonMapper();
+
 
         @Override
         public void configure() throws Exception {

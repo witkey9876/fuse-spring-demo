@@ -18,14 +18,13 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 import java.util.UUID;
 
-import static org.apache.camel.builder.ProcessorBuilder.setHeader;
-
+/**
+ * @see <a href="https://github.com/jboss-fuse/redhat-fuse">redhat-fuse</a>
+ */
 @SpringBootApplication
 public class CamelSpringDemoApplication {
 
 
-    private String contextPath = "/camel";
-    private Integer serverPort = 8080;
 
     public static void main(String[] args) {
         SpringApplication.run(CamelSpringDemoApplication.class, args);
