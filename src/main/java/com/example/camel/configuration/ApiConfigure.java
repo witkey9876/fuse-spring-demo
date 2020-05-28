@@ -17,7 +17,8 @@ public class ApiConfigure {
 
 
     public String getDefaultLocalFullPath(String api) {
-        String contextPath = serverProperties.getServlet().getContextPath();
+//        String contextPath = serverProperties.getServlet().getContextPath();
+        String contextPath = "";
         contextPath = Objects.isNull(contextPath) ? "" : contextPath;
         Integer port = serverProperties.getPort();
         port = Objects.isNull(port) ? 8080 : port;
