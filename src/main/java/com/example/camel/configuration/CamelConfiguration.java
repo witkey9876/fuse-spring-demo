@@ -96,36 +96,7 @@ public class CamelConfiguration {
 
     }
 
-    /**
-     * <step>
-     * 1. 启用一个定时器从
-     * 2. 访问 http服务
-     * 3. 打印log日志
-     * <p>
-     * 4. 访问 http服务 获取json消息
-     * 5. 将 json 反序列为化 bean
-     *
-     * </step>
-     *
-     * @see <a href="https://camel.apache.org/components/latest/http-component.html">http-component</a>
-     */
-    @Component
-    public class XMLToJmsRoute extends RouteBuilder {
 
-
-        @Override
-        public void configure() throws Exception {
-
-            //https://camel.apache.org/components/latest/timer-component.html
-            from("timer:xml?repeatCount=15")
-                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.PERSON_XML))
-                    .unmarshal(new JacksonXMLDataFormat())
-                    .to("jms:queue:xmlPersonQueue");
-
-
-        }
-
-    }
 
     /**
      * 1. 接受mq消息队列的消息
@@ -155,55 +126,7 @@ public class CamelConfiguration {
     }
 
 
-    /**
-     * 1. 接受mq消息队列的消息
-     * 2. xml to json
-     * 3. base ccontent json
-     *
-     * @see <a href="https://camel.apache.org/components/latest/jms-component.html">http-component</a>
-     */
-    @Component
-    public class XmlToJsonRoute extends RouteBuilder {
 
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        private JsonMapper jsonMapper = new JsonMapper();
-
-        @Override
-        public void configure() throws Exception {
-
-            JacksonDataFormat format = new JacksonDataFormat();
-            format.setInclude("NON_NULL");
-            //https://camel.apache.org/components/latest/jms-component.html
-            from("jms:queue:xmlPersonQueue")
-                    .log("log:Consume the xmlPersonQueue queue message ${body}")
-                    .marshal(format)
-                    .log("log:XmlToJsonRoute----${body}")
-                    .choice()
-                    .when((p) -> than20(p))
-                    .setHeader(Exchange.HTTP_METHOD, constant("POST"))
-                    .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.PERSON_UPDATE))
-                    .log("log: XmlToJsonRoute----${body}")
-                    .otherwise()
-                    .setHeader(Exchange.HTTP_METHOD, constant("GET"))
-                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.INDEX))
-                    .log("log: XmlToJsonRoute----${body}")
-                    .end();
-
-        }
-
-        private boolean than20(Exchange exchange) {
-
-            try {
-                Map map = objectMapper.readValue(((byte[]) exchange.getIn().getBody()), Map.class);
-                return Integer.parseInt(map.get("age").toString()) > 20;
-            } catch (IOException e) {
-                return Boolean.FALSE;
-            }
-
-        }
-    }
 
 
     /**
@@ -247,6 +170,90 @@ public class CamelConfiguration {
                         }
                     })
                     .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201));
+        }
+    }
+
+    /**
+     * <step>
+     * 1. 启用一个定时器从
+     * 2. 访问 http服务
+     * 3. 打印log日志
+     * <p>
+     * 4. 访问 http服务 获取json消息
+     * 5. 将 json 反序列为化 bean
+     *
+     * </step>
+     *
+     * @see <a href="https://camel.apache.org/components/latest/http-component.html">http-component</a>
+     */
+    @Component
+    public class XMLToJmsRoute extends RouteBuilder {
+
+
+        @Override
+        public void configure() throws Exception {
+
+            //https://camel.apache.org/components/latest/timer-component.html
+            from("timer:xml?repeatCount=15")
+                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.PERSON_XML))
+                    .unmarshal(new JacksonXMLDataFormat())
+                    .to("jms:queue:xmlPersonQueue");
+
+
+        }
+
+    }
+
+    /******************************案例**************************************/
+
+    /**
+     * 1. 接受mq消息队列的消息
+     * 2. xml to json
+     * 3.  content based router
+     * 4. call http rest
+     *
+     * @see <a href="https://camel.apache.org/components/latest/jms-component.html">http-component</a>
+     */
+    @Component
+    public class XmlToJsonRoute extends RouteBuilder {
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        private JsonMapper jsonMapper = new JsonMapper();
+
+        @Override
+        public void configure() throws Exception {
+
+            JacksonDataFormat format = new JacksonDataFormat();
+            format.setInclude("NON_NULL");
+            //https://camel.apache.org/components/latest/jms-component.html
+            from("jms:queue:xmlPersonQueue")
+                    .log("log:Consume the xmlPersonQueue queue message ${body}")
+                    .marshal(format)
+                    .log("log:XmlToJsonRoute----${body}")
+                    .choice()
+                    .when((p) -> than20(p))
+                    .setHeader(Exchange.HTTP_METHOD, constant("POST"))
+                    .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.PERSON_UPDATE))
+                    .log("log: XmlToJsonRoute----${body}")
+                    .otherwise()
+                    .setHeader(Exchange.HTTP_METHOD, constant("GET"))
+                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.INDEX))
+                    .log("log: XmlToJsonRoute----${body}")
+                    .end();
+
+        }
+
+        private boolean than20(Exchange exchange) {
+
+            try {
+                Map map = objectMapper.readValue(((byte[]) exchange.getIn().getBody()), Map.class);
+                return Integer.parseInt(map.get("age").toString()) > 20;
+            } catch (IOException e) {
+                return Boolean.FALSE;
+            }
+
         }
     }
 }
