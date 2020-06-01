@@ -1,0 +1,13 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Jun 01 10:19:09 CST 2020
+https\://maven.repository.redhat.com/earlyaccess/all/.error=
+https\://repo.spring.io/ext-release-local/.lastUpdated=1590977945642
+https\://repo.spring.io/snapshot/.error=
+https\://repo.spring.io/snapshot/.lastUpdated=1590977948448
+https\://repo.spring.io/milestone/.lastUpdated=1590977947580
+https\://maven.repository.redhat.com/earlyaccess/all/.lastUpdated=1590977945181
+https\://maven.repository.redhat.com/ga/.lastUpdated=1590977944192
+https\://repo.maven.apache.org/maven2/.lastUpdated=1590977949063
+https\://repo.spring.io/milestone/.error=
+https\://maven.repository.redhat.com/ga/.error=
+https\://repo.spring.io/ext-release-local/.error=

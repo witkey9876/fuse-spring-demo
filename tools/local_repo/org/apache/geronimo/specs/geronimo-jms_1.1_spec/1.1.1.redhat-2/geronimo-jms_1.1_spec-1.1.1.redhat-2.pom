@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+     http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<!-- $Rev$ $Date$ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>specs</artifactId>
+        <version>1.4</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    
+    <artifactId>geronimo-jms_1.1_spec</artifactId>
+    <packaging>jar</packaging>
+    <name>JMS 1.1</name>
+    <version>1.1.1.redhat-2</version>
+
+    <properties>
+        <geronimo.osgi.export.pkg>javax.jms*</geronimo.osgi.export.pkg>
+        <geronimo.osgi.export.version>1.1</geronimo.osgi.export.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>mockobjects</groupId>
+            <artifactId>mockobjects-core</artifactId>
+            <version>0.09</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>mockobjects</groupId>
+            <artifactId>mockobjects-jdk1.4-j2ee1.3</artifactId>
+            <version>0.09</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <connection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jms_1.1_spec-1.1.1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jms_1.1_spec-1.1.1</developerConnection>
+        <url>scm:svn:https://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-jms_1.1_spec-1.1.1</url>
+    </scm>
+
+    <build>
+    <plugins>
+      <plugin>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <version>0.3</version>
+        <executions>
+          <execution>
+            <id>project-sources-archive</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>archive</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.redhat.rcm.maven.plugin</groupId>
+        <artifactId>buildmetadata-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <executions>
+          <execution>
+            <id>build-metadata</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>provide-buildmetadata</goal>
+            </goals>
+            <configuration>
+              <addToLocations>
+                <addToLocation>${session.executionRootDirectory}</addToLocation>
+              </addToLocations>
+              <activateOutputFileMapping>false</activateOutputFileMapping>
+              <addBuildDateInfo>false</addBuildDateInfo>
+              <addLocallyModifiedTagToFullVersion>false</addLocallyModifiedTagToFullVersion>
+              <addHostInfo>false</addHostInfo>
+              <addJavaRuntimeInfo>true</addJavaRuntimeInfo>
+              <addToFilters>false</addToFilters>
+              <validateCheckout>false</validateCheckout>
+              <addOsInfo>false</addOsInfo>
+              <hideJavaOptsInfo>false</hideJavaOptsInfo>
+              <forceNewProperties>true</forceNewProperties>
+              <hideCommandLineInfo>false</hideCommandLineInfo>
+              <addBuildDateToFullVersion>false</addBuildDateToFullVersion>
+              <createPropertiesReport>true</createPropertiesReport>
+              <addToGeneratedSources>false</addToGeneratedSources>
+              <createXmlReport>false</createXmlReport>
+              <propertiesOutputFile>${project.build.outputDirectory}/META-INF/build.metadata</propertiesOutputFile>
+              <addMavenExecutionInfo>false</addMavenExecutionInfo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+<!--
+Modified by POM Manipulation Extension for Maven 1.17 ( SHA: 89482a03 ) 
+-->
+
