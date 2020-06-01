@@ -245,7 +245,7 @@ public class CamelConfiguration {
             try {
                 Map map = objectMapper.readValue(((byte[]) exchange.getIn().getBody()), Map.class);
                 return Integer.parseInt(map.get("age").toString()) > 20;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 return Boolean.FALSE;
             }
 
