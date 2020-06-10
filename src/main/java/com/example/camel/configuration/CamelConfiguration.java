@@ -62,6 +62,20 @@ public class CamelConfiguration {
     }
 
 
+    @Component
+    public class HttpDynamicRoute extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            from("timer:orders?repeatCount=20")
+                    .log("log:http resp msg ${body}")
+                    .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.ORDERS))
+                    .toD(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.ORDERS) + "/" + "${body}")
+                    .log("log:dynamic resp ${body}");
+        }
+
+    }
+
+
     /**
      * <step>
      * 1. 启用一个定时器从
@@ -236,6 +250,7 @@ public class CamelConfiguration {
                     .setHeader(Exchange.HTTP_METHOD, constant("GET"))
                     .to(apiConfigure.getDefaultLocalFullPath(ApiConfigure.APIRoute.INDEX))
                     .log("log: XmlToJsonRoute----${body}")
+
                     .end();
 
         }

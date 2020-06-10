@@ -35,7 +35,7 @@ public class IndexController {
         return 1;
     }
 
-    @RequestMapping(value = ApiConfigure.APIRoute.PERSON_XML,produces = {"application/xml;charset=UTF-8"})
+    @RequestMapping(value = ApiConfigure.APIRoute.PERSON_XML, produces = {"application/xml;charset=UTF-8"})
     @ResponseBody
     public Person xml() {
         return new Person(UUID.randomUUID().toString(), new Random().nextInt(100));
@@ -47,6 +47,17 @@ public class IndexController {
         return new Person(UUID.randomUUID().toString(), new Random().nextInt(100));
     }
 
+
+    @RequestMapping(ApiConfigure.APIRoute.ORDERS)
+    public String order() {
+        return "Order1000";
+    }
+
+
+    @RequestMapping(ApiConfigure.APIRoute.ORDERS_SHOW)
+    public String orderShow(@PathVariable String id) {
+        return "orderId:" + id;
+    }
 
 
 }

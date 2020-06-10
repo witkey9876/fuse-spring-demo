@@ -34,6 +34,13 @@ public class ApiConfigure {
         String PERSON_XML = "/persons/xml";
 
         String REST_TEST = "/api/person";
+
+        String ORDERS = "/api/orders";
+
+        String ORDERS_SHOW = "/api/orders/{id}";
+
+
+
     }
 
 }
